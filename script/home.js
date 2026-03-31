@@ -66,6 +66,8 @@ allButtons();
 
 
 
+const tabOpen = document.getElementById("tab-open");
+const tabClosed = document.getElementById("tab-closed");
 
 const cardFilters = [allBtn, openBtn, closedBtn];
 const statuses = ["all", "open", "closed"];
@@ -120,6 +122,19 @@ cardFilters.forEach((btn, index) => {
   </div>
         `;
             cardsContainer.append(newCard);
+          }     
+          
+                tabOpen.classList.add("hidden");
+                tabClosed.classList.add("hidden");
+            if(selectedStatus === "open"){
+                tabOpen.classList.remove("hidden");
+                tabClosed.classList.add("hidden");    
+          } else if(selectedStatus === "closed"){
+                tabClosed.classList.remove("hidden");
+                tabOpen.classList.add("hidden");
+          } else{
+                tabClosed.classList.remove("hidden");
+                tabOpen.classList.remove("hidden");
           }
         });
         issuesCount.innerText = cardsContainer.children.length ;
