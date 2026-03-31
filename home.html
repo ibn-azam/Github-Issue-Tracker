@@ -33,8 +33,8 @@
   </head>
   <body>
   <!-- This is the header section -->
-    <header class="flex justify-between items-center px-[80px] py-[23px] bg-[#FFFFFF]">
-      <div class="flex items-center gap-2">
+    <header class="md:flex justify-between items-center px-[80px] py-[23px] bg-[#FFFFFF]">
+      <div class="flex items-center gap-2 mb-4 md:mb-0">
         <img class="w-[36px] h-[37px]" src="./assets/github-logo.png" alt="" />
         <h2 class="text-[24px] font-semibold">GitHub Issues Tracker</h2>
       </div>
@@ -54,23 +54,23 @@
 <!-- This is the tab section -->
     <section class="p-[24px] max-w-[1110px] mx-auto my-[60px] bg-[#FFFFFF] rounded-md">
       <div class="flex gap-2 ">
-        <button class="btn btn-primary ">All</button>
-        <button class="btn border-t-neutral-100 ">Open</button>
-        <button class="btn border-t-neutral-100 ">Closed</button>
+        <button id="all-btn" class="btn btn-primary">All</button>
+        <button id="open-btn" class="btn border-t-neutral-100 ">Open</button>
+        <button id="closed-btn"  class="btn border-t-neutral-100 ">Closed</button>
       </div>
     </section>
 <!-- This is the all issues cards section -->
-    <section class="p-[24px] max-w-[1110px] mx-auto mt-[60px] bg-[#FFFFFF]  flex justify-between items-center">
+    <section class="p-[24px] max-w-[1110px] mx-auto mt-[60px] bg-[#FFFFFF] md:flex flex-row justify-between items-center">
       <div class="flex items-center gap-2">
           <span class="rounded-full w-[50px] h-[50px] flex justify-center items-center bg-[#ECE4FF]"><img src="./assets/Aperture.png" alt="">
           </span>
         <div>
-          <h2 class="text-[20px] font-semibold">50 Issues</h2>
+          <h2 class="text-[20px] font-semibold"><span  id="issues-count">50</span> Issues</h2>
           <p class="text-[16px] text-[#64748B]">Track and manage your project issues</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 mt-4 ml-3 md:mt-0 md:ml-0">
         <div class="flex items-center gap-2">
           <div class="w-[12px] h-[12px] bg-[#00A96E] rounded-full"></div>
           <p>Open</p>
@@ -82,8 +82,8 @@
       </div>
     </section>
     
-<section class="all-card p-[24px] max-w-[1110px] mx-auto bg-[#FFFFFF] ">
-  <div class="card max-w-[256px] h-[256px] p-[16px] bg-[#EFEFEF]">
+<section id="issues-container" class="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-[12px] all-card p-[24px] max-w-[1110px] mx-auto bg-[#FFFFFF] ">
+  <!-- <div class="card max-w-[256px] h-[256px] p-[16px] bg-[#EFEFEF]">
     <div class="flex justify-between items-center">
       <img w-[24px] h-[24px] src="./assets/Open-Status.png" alt="">
       <div class="w-[80px] h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex items-center"><p class="text-[#EF4444] text-[12px] font-medium">High</p></div>
@@ -107,7 +107,10 @@
         <p class="text-[12px] text-[#64748B] mt-[6px]">1/15/2024</p>
       </div>
     </div>
-  </div>
+  </div> -->
+</section>
+
+  
 </section>
     <script src="./script/login.js"></script>
     <script src="./script/home.js"></script>

@@ -2,6 +2,22 @@
     font-family: "Inter", sans-serif;
 }
 body{
-    /* background-color: #F8FAFC; */
-    background-color: black;
+    background-color: #F8FAFC;
 }
+
+.active{
+    background-color: #4A00FF;
+    color: #FFFFFF;
+    font-weight: bold;
+
+}
+
+.remove{
+    background-color: white;
+    border: 1px solid #E4E4E7;
+    color: #64748B;
+    font-weight: bold;
+}
+
+
+
