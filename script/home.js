@@ -12,13 +12,13 @@ const displayGithubIssues = (issues) =>{
     issues.forEach(issue =>{
         const issueCard = document.createElement("div");
         issueCard.innerHTML = `
-        <div class="card max-w-[256px] min-h-[256px] p-[16px] bg-[#EFEFEF]">
+        <div class="card  max-w-[256px] h-[256px] p-[16px] bg-[#EFEFEF]">
     <div class="flex justify-between items-center">
       <p>${issue.status == "open" ? `<img src="./assets/Open-Status.png" alt="">` : `<img src="./assets/Closed- Status .png" alt="">`}</p>
       <div class="w-[80px] h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
     </div>
     <div class="py-[12px]">
-      <button class="cursor-pointer" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
+      <button class="cursor-pointer text-justify " onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
       <p class="text-[12px] text-[#64748B] mb-3">${issue.description}</p>
       <div class="flex items-center gap-1">
         <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#FEECEC] border border-[#FECACA]">
@@ -97,7 +97,7 @@ cardFilters.forEach((btn, index) => {
       <div class="w-[80px] h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
     </div>
     <div class="py-[12px]">
-      <button class="cursor-pointer" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
+      <button class="cursor-pointer text-justify" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
       <p class="text-[12px] text-[#64748B] mb-3">${issue.description}</p>
       <div class="flex items-center gap-1">
         <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#FEECEC] border border-[#FECACA]">
@@ -198,3 +198,20 @@ const displayIssuesData = (issue) =>{
   document.getElementById("issue_modal").showModal();
 }
 
+document.getElementById("btn-search").addEventListener("click", () =>{
+  manageSpinner(true);
+  const input = document.getElementById("input-search");
+  const searchValue = input.value.trim().toLowerCase();
+  
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+  .then((res) => res.json())
+  .then((data) => {
+    const allIssues = data.data;
+    const filtersIssues = allIssues.filter((word) => word.title.toLowerCase()
+    .includes(searchValue));
+    displayGithubIssues(filtersIssues);
+    manageSpinner(false);
+    
+  })
+
+})

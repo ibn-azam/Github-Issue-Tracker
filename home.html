@@ -43,11 +43,11 @@
         <div class="join">
           <div>
             <label  class="input validator join-item rounded-sm" >
-              🔍 <input  type="email" placeholder="Search issues.." required />
+              🔍 <input id="input-search"  type="email" placeholder="Search issues.." required />
             </label>
-            <div class="validator-hint hidden">Enter valid email address</div>
+            
           </div>
-          <button  class="btn btn-primary join-item ml-6 rounded-sm"><span><i class="fa-solid fa-plus"></i></span>New Issue</button>
+          <button id="btn-search"  class="btn btn-primary join-item ml-6 rounded-sm"><span><i class="fa-solid fa-plus"></i></span>New Issue</button>
         </div>
       </div>
     </header>
@@ -120,7 +120,7 @@
 <dialog id="issue_modal" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
     <div  id="issue-details-container" class="space-y-3">
-        <h2 class="text-[24px] font-semibold">Fix broken image uploads</h2>
+        <!-- <h2 class="text-[24px] font-semibold">Fix broken image uploads</h2>
         <div class="flex gap-1">
            <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#00A96E]">
           <p class="text-[12px] font-medium text-[#FFFFFF]">Opened</p>
@@ -149,7 +149,7 @@
             <div class="w-[80px] h-[24px] bg-[#EF4444] py-[6px] px-[25px] rounded-full flex items-center"><p class="text-[#FFFFFF] text-[12px] font-medium">High</p>
             </div>
           </div>
-      </div>
+      </div> -->
     </div>
     <div class="modal-action">
       <form method="dialog">
