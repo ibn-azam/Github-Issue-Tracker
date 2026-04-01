@@ -18,7 +18,7 @@ const displayGithubIssues = (issues) =>{
       <div class="w-[80px] h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
     </div>
     <div class="py-[12px]">
-      <h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2>
+      <button class="cursor-pointer" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
       <p class="text-[12px] text-[#64748B] mb-3">${issue.description}</p>
       <div class="flex items-center gap-1">
         <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#FEECEC] border border-[#FECACA]">
@@ -97,7 +97,7 @@ cardFilters.forEach((btn, index) => {
       <div class="w-[80px] h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
     </div>
     <div class="py-[12px]">
-      <h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2>
+      <button class="cursor-pointer" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
       <p class="text-[12px] text-[#64748B] mb-3">${issue.description}</p>
       <div class="flex items-center gap-1">
         <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#FEECEC] border border-[#FECACA]">
@@ -151,4 +151,50 @@ const manageSpinner = (status) =>{
     document.getElementById("issues-container").classList.remove("hidden");
   }
 };
+
+const loadIssuesDetails = async (id) => {
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayIssuesData(details.data);
+}; 
+
+const displayIssuesData = (issue) =>{
+  const detailsBox = document.getElementById("issue-details-container");
+  detailsBox.innerHTML = `
+      <div  id="issue-details-container">
+        <h2 class="text-[24px] font-semibold mb-2">${issue.title}</h2>
+        <div class="flex items-center gap-[10px]">
+           <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#00A96E]">
+          <p class="text-[12px] font-medium text-[#FFFFFF]">${issue.status}</p>
+        </div>
+          <p class="text-[12px] text-[#64748B]">Opened by Fahim Ahmed</p>
+          <p class="text-[12px] text-[#64748B]">22/02/2026</p>
+        </div>
+        <div class="flex items-center gap-1 my-6">
+        <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#FEECEC] border border-[#FECACA]">
+          <span><i class="fa-solid fa-bug w-[8px] h-[8px] "></i></span>
+          <p class="text-[12px] font-medium text-[#EF4444]">BUG</p>
+        </div>
+        <div class="flex items-center justify-center gap-1 rounded-full w-[120px] h-[24px] bg-[#FFF8DB] border border-[#FDE68A]">
+          <span><i class="fa-solid fa-hands-holding-circle"></i></span>
+          <p class="text-[12px] font-medium text-[#D97706]">HELP WANTED</p>
+        </div>
+      </div>
+      <p class="text-[12px] text-[#64748B]">The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.</p>
+      <div class="bg-[#F8FAFC] flex py-4 px-4 gap-20 mt-6">
+          <div>
+            <p class="text-[16px] text-[#64748B]">Assignee:</p>
+            <h2 class="text-[16px] font-semibold">Fahim Ahmed</h2>
+          </div>
+          <div>
+            <p class="text-[16px] text-[#64748B]">Priority:</p>
+            <div class="w-[80px] h-[24px] bg-[#EF4444] mt-1 py-[6px] px-[25px] rounded-full flex justify-center items-center"><p class="text-[#FFFFFF] text-[12px] font-medium">${issue.priority}</p>
+            </div>
+          </div>
+      </div>
+    </div>  
+  `;
+  document.getElementById("issue_modal").showModal();
+}
 
