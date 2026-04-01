@@ -40,9 +40,8 @@ const displayGithubIssues = (issues) =>{
   </div>
         `;
         issuesContainer.append(issueCard);
-
-    })
-} 
+    }); 
+} ;
 loadGithubIssues();
 const allBtn = document.getElementById("all-btn");
 const openBtn = document.getElementById("open-btn");
@@ -75,9 +74,8 @@ const issuesCount = document.getElementById("issues-count");
 
 cardFilters.forEach((btn, index) => {
   btn.addEventListener("click", () => {
-
+    manageSpinner(true);
     const selectedStatus = statuses[index];
-
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
     fetch(url)
@@ -88,7 +86,6 @@ cardFilters.forEach((btn, index) => {
         cardsContainer.innerHTML = "";
 
         data.data.forEach(issue => {
-
           if (selectedStatus === "all" || issue.status === selectedStatus) {
 
             const newCard = document.createElement("div");
@@ -137,7 +134,21 @@ cardFilters.forEach((btn, index) => {
                 tabOpen.classList.remove("hidden");
           }
         });
+        manageSpinner(false);
         issuesCount.innerText = cardsContainer.children.length ;
-      });
+      }); 
   });
 });
+
+
+
+const manageSpinner = (status) =>{
+  if(status == true){
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("issues-container").classList.add("hidden");
+  }else{
+    document.getElementById("spinner").classList.add("hidden");
+    document.getElementById("issues-container").classList.remove("hidden");
+  }
+};
+
