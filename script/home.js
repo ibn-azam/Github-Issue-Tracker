@@ -1,26 +1,26 @@
-const loadGithubIssues = () =>{
-    const url ="https://phi-lab-server.vercel.app/api/v1/lab/issues";
-    fetch(url)
+const loadGithubIssues = () => {
+  const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+  fetch(url)
     .then((res) => res.json())
-    .then((data) => displayGithubIssues(data.data))
-}
+    .then((data) => displayGithubIssues(data.data));
+};
 
-const displayGithubIssues = (issues) =>{
-    const issuesContainer = document.getElementById("issues-container");
-    issuesContainer.innerHTML ="";
+const displayGithubIssues = (issues) => {
+  const issuesContainer = document.getElementById("issues-container");
+  issuesContainer.innerHTML = "";
 
-    issues.forEach(issue =>{
-        const issueCard = document.createElement("div");
-        issueCard.innerHTML = `
-        <div class="card  max-w-[256px] h-[256px] p-[16px] bg-[#EFEFEF]">
+  issues.forEach((issue) => {
+    const issueCard = document.createElement("div");
+    issueCard.innerHTML = `
+        <div class="card flex flex-col justify-between rounded-lg  max-w-[256px] min-h-[256px] p-[16px]  bg-[#FFFFFF] border-t-4 ${issue.status === "open" ? "border-green-500" : "border-purple-500"} shadow-md">
     <div class="flex justify-between items-center">
       <p>${issue.status == "open" ? `<img src="./assets/Open-Status.png" alt="">` : `<img src="./assets/Closed- Status .png" alt="">`}</p>
-      <div class="w-[80px] h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
+      <div class="w-[80px] h-[24px] py-[6px] px-[25px] rounded-full flex justify-center items-center ${issue.priority === "high" ? "bg-[#FEECEC] text-[#EF4444]" : issue.priority === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-[#FFF6D1] text-[#F59E0B]"}"><p class=" text-[12px] font-medium">${issue.priority}</p></div>
     </div>
-    <div class="py-[12px]">
-      <button class="cursor-pointer text-justify " onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
-      <p class="text-[12px] text-[#64748B] mb-3">${issue.description}</p>
-      <div class="flex items-center gap-1">
+    <div class="my-2">
+      <button class="cursor-pointer text-left " onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold line-clamp-1 my-1">${issue.title}</h2></button>
+      <p class="text-[12px] text-[#64748B] mb-3 line-clamp-2">${issue.description}</p>
+      <div class="flex items-wrap gap-2">
         <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#FEECEC] border border-[#FECACA]">
           
           <h2 class="text-[12px] font-medium text-[#EF4444]"><i class="fa-solid fa-bug w-[8px] h-[8px] "></i>BUG</h2>
@@ -32,38 +32,37 @@ const displayGithubIssues = (issues) =>{
         </div>       
       </div>
 
-      <div class="card-footer my-6">
-        <p class="text-[12px] text-[#64748B]">#1by john_doe</p>
-        <p class="text-[12px] text-[#64748B] mt-[6px]">1/15/2024</p>
+      <div class="card-footer my-3 border-t border-gray-300 w-full ">
+        <p class="text-[12px] text-[#64748B] mt-3 ">#1by john_doe</p>
+        <p class="text-[12px] text-[#64748B] mt-2">1/15/2024</p>
       </div>
     </div>
   </div>
         `;
-        issuesContainer.append(issueCard);
-    }); 
-} ;
+    issuesContainer.append(issueCard);
+  });
+};
+
 loadGithubIssues();
 const allBtn = document.getElementById("all-btn");
 const openBtn = document.getElementById("open-btn");
 const closedBtn = document.getElementById("closed-btn");
 
-const allTabs = [allBtn, openBtn, closedBtn ];
+const allTabs = [allBtn, openBtn, closedBtn];
 
-const allButtons = () =>{
-    allTabs.forEach(btn =>{
-        btn.addEventListener("click", function(){
-            allTabs.forEach(tab =>{
-                tab.classList.add("remove");
-                tab.classList.remove("active");
-            })
-            btn.classList.add("active");
-            btn.classList.remove("remove");
-        })
-    })
-}
+const allButtons = () => {
+  allTabs.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      allTabs.forEach((tab) => {
+        tab.classList.add("remove");
+        tab.classList.remove("active");
+      });
+      btn.classList.add("active");
+      btn.classList.remove("remove");
+    });
+  });
+};
 allButtons();
-
-
 
 const tabOpen = document.getElementById("tab-open");
 const tabClosed = document.getElementById("tab-closed");
@@ -81,24 +80,22 @@ cardFilters.forEach((btn, index) => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-
         const cardsContainer = document.getElementById("issues-container");
         cardsContainer.innerHTML = "";
 
-        data.data.forEach(issue => {
+        data.data.forEach((issue) => {
           if (selectedStatus === "all" || issue.status === selectedStatus) {
-
             const newCard = document.createElement("div");
 
             newCard.innerHTML = `
-            <div class="card max-w-[256px] min-h-[256px] p-[16px] bg-[#EFEFEF]">
+            <div class="card max-w-[256px] h-[256px] p-[16px] bg-[#FFFFFF] border-t-4 ${issue.status === "open" ? "border-green-500" : "border-purple-500"}  shadow-md">
     <div class="flex justify-between items-center">
       <p>${issue.status == "open" ? `<img src="./assets/Open-Status.png" alt="">` : `<img src="./assets/Closed- Status .png" alt="">`}</p>
-      <div class="w-[80px] h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
+      <div class="w-[80px] min-h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center ${issue.priority === "high" ? "bg-[#FEECEC] text-[#EF4444]" : issue.priority === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-[#FFF6D1] text-[#F59E0B]"}"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
     </div>
-    <div class="py-[12px]">
-      <button class="cursor-pointer text-justify" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] font-semibold mb-2">${issue.title}</h2></button>
-      <p class="text-[12px] text-[#64748B] mb-3">${issue.description}</p>
+    <div class="my-2">
+      <button class="cursor-pointer text-justify" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] line-clamp-1 font-semibold my-1">${issue.title}</h2></button>
+      <p class="text-[12px] text-[#64748B] line-clamp-2 mb-3">${issue.description}</p>
       <div class="flex items-center gap-1">
         <div class="flex items-center justify-center gap-1 rounded-full w-[56px] h-[24px] bg-[#FEECEC] border border-[#FECACA]">
           
@@ -111,42 +108,40 @@ cardFilters.forEach((btn, index) => {
         </div>       
       </div>
 
-      <div class="card-footer my-6">
-        <p class="text-[12px] text-[#64748B]">#1by john_doe</p>
-        <p class="text-[12px] text-[#64748B] mt-[6px]">1/15/2024</p>
+      <div class="card-footer my-3 border-t border-gray-300 w-full">
+        <p class="text-[12px] text-[#64748B] mt-3">#1by john_doe</p>
+        <p class="text-[12px] text-[#64748B] mt-2">1/15/2024</p>
       </div>
     </div>
   </div>
         `;
             cardsContainer.append(newCard);
-          }     
-          
-                tabOpen.classList.add("hidden");
-                tabClosed.classList.add("hidden");
-            if(selectedStatus === "open"){
-                tabOpen.classList.remove("hidden");
-                tabClosed.classList.add("hidden");    
-          } else if(selectedStatus === "closed"){
-                tabClosed.classList.remove("hidden");
-                tabOpen.classList.add("hidden");
-          } else{
-                tabClosed.classList.remove("hidden");
-                tabOpen.classList.remove("hidden");
+          }
+
+          tabOpen.classList.add("hidden");
+          tabClosed.classList.add("hidden");
+          if (selectedStatus === "open") {
+            tabOpen.classList.remove("hidden");
+            tabClosed.classList.add("hidden");
+          } else if (selectedStatus === "closed") {
+            tabClosed.classList.remove("hidden");
+            tabOpen.classList.add("hidden");
+          } else {
+            tabClosed.classList.remove("hidden");
+            tabOpen.classList.remove("hidden");
           }
         });
         manageSpinner(false);
-        issuesCount.innerText = cardsContainer.children.length ;
-      }); 
+        issuesCount.innerText = cardsContainer.children.length;
+      });
   });
 });
 
-
-
-const manageSpinner = (status) =>{
-  if(status == true){
+const manageSpinner = (status) => {
+  if (status == true) {
     document.getElementById("spinner").classList.remove("hidden");
     document.getElementById("issues-container").classList.add("hidden");
-  }else{
+  } else {
     document.getElementById("spinner").classList.add("hidden");
     document.getElementById("issues-container").classList.remove("hidden");
   }
@@ -157,9 +152,9 @@ const loadIssuesDetails = async (id) => {
   const res = await fetch(url);
   const details = await res.json();
   displayIssuesData(details.data);
-}; 
+};
 
-const displayIssuesData = (issue) =>{
+const displayIssuesData = (issue) => {
   const detailsBox = document.getElementById("issue-details-container");
   detailsBox.innerHTML = `
       <div  id="issue-details-container">
@@ -196,22 +191,21 @@ const displayIssuesData = (issue) =>{
     </div>  
   `;
   document.getElementById("issue_modal").showModal();
-}
+};
 
-document.getElementById("btn-search").addEventListener("click", () =>{
+document.getElementById("btn-search").addEventListener("click", () => {
   manageSpinner(true);
   const input = document.getElementById("input-search");
   const searchValue = input.value.trim().toLowerCase();
-  
-  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
-  .then((res) => res.json())
-  .then((data) => {
-    const allIssues = data.data;
-    const filtersIssues = allIssues.filter((word) => word.title.toLowerCase()
-    .includes(searchValue));
-    displayGithubIssues(filtersIssues);
-    manageSpinner(false);
-    
-  })
 
-})
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then((res) => res.json())
+    .then((data) => {
+      const allIssues = data.data;
+      const filtersIssues = allIssues.filter((word) =>
+        word.title.toLowerCase().includes(searchValue),
+      );
+      displayGithubIssues(filtersIssues);
+      manageSpinner(false);
+    });
+});

@@ -1,23 +1,26 @@
-*{
-    font-family: "Inter", sans-serif;
+* {
+  font-family: "Inter", sans-serif;
 }
-body{
-    background-color: #F8FAFC;
-}
-
-.active{
-    background-color: #4A00FF;
-    color: #FFFFFF;
-    font-weight: bold;
-
+body {
+  background-color: #f8fafc;
 }
 
-.remove{
-    background-color: white;
-    border: 1px solid #E4E4E7;
-    color: #64748B;
-    font-weight: bold;
+.active {
+  background-color: #4a00ff;
+  color: #ffffff;
+  font-weight: bold;
 }
 
+.remove {
+  background-color: white;
+  border: 1px solid #e4e4e7;
+  color: #64748b;
+  font-weight: bold;
+}
 
-
+.green {
+  border: 8px solid (#00a96e);
+}
+.purple {
+  border: 8px solid (#a855f7);
+}
