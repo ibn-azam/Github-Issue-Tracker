@@ -91,7 +91,7 @@ cardFilters.forEach((btn, index) => {
             <div class="card max-w-[256px] h-[256px] p-[16px] bg-[#FFFFFF] border-t-4 ${issue.status === "open" ? "border-green-500" : "border-purple-500"}  shadow-md">
     <div class="flex justify-between items-center">
       <p>${issue.status == "open" ? `<img src="./assets/Open-Status.png" alt="">` : `<img src="./assets/Closed- Status .png" alt="">`}</p>
-      <div class="w-[80px] min-h-[24px] bg-[#FEECEC] py-[6px] px-[25px] rounded-full flex justify-center items-center ${issue.priority === "high" ? "bg-[#FEECEC] text-[#EF4444]" : issue.priority === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-[#FFF6D1] text-[#F59E0B]"}"><p class="text-[#EF4444] text-[12px] font-medium">${issue.priority}</p></div>
+      <div class="w-[80px] min-h-[24px] py-[6px] px-[25px] rounded-full flex justify-center items-center ${issue.priority === "high" ? "bg-[#FEECEC] text-[#EF4444]" : issue.priority === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-[#FFF6D1] text-[#F59E0B]"}"><p class="text-[12px] font-medium">${issue.priority}</p></div>
     </div>
     <div class="my-2">
       <button class="cursor-pointer text-justify" onclick="loadIssuesDetails(${issue.id})"><h2 class="text-[14px] line-clamp-1 font-semibold my-1">${issue.title}</h2></button>
